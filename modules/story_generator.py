@@ -1,5 +1,6 @@
 from groq import Groq
 import streamlit as st
+import json
 
 from config.prompts import SYSTEM_PROMPT
 
@@ -29,4 +30,12 @@ def generate_story(user_prompt):
         ]
     )
 
-    return response.choices[0].message.content
+    content = response.choices[0].message.content
+
+    try:
+        return json.loads(content)
+    except json.JSONDecodeError:
+        return {
+            "error": "Invalid JSON returned by AI.",
+            "raw_response": content
+        }
