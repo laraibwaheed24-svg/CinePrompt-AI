@@ -118,6 +118,7 @@ else:
         st.warning("Please enable story generation.")
 
 # Only display story if it exists
+
 if 'story' in globals():
     st.text_area("Generated Story", story, height=500)
 
