@@ -114,12 +114,12 @@ if generate and prompt.strip():
 else:
     if not prompt.strip():
         st.warning("Please enter a prompt first.")
+    else:
+        st.warning("Please enable story generation.")
 
-st.text_area(
-    "Generated Story",
-    story,
-    height=500
-)
+# Only display story if it exists
+if 'story' in locals():
+    st.text_area("Generated Story", story, height=500)
 
 st.markdown("---")
 
