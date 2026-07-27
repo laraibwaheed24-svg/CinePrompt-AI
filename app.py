@@ -103,15 +103,17 @@ generate = st.button(
     use_container_width=True
 )
 
-if generate:
-    if prompt.strip() == "":
+if generate and prompt.strip():
+    with st.spinner("Creating cinematic story..."):
+        try:
+            story = generate_story(prompt)
+            st.success("Story Generated!")
+            st.text_area("Generated Story", story, height=500)
+        except Exception as e:
+            st.error(f"Error generating story: {e}")
+else:
+    if not prompt.strip():
         st.warning("Please enter a prompt first.")
-    else:
-        with st.spinner("Creating cinematic story..."):
-
-    story = generate_story(prompt)
-
-st.success("Story Generated!")
 
 st.text_area(
     "Generated Story",
