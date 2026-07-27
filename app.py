@@ -1,5 +1,6 @@
 import streamlit as st
 from modules.story_generator import generate_story
+from utils.parser import parse_story
 
 # Page Configuration
 st.set_page_config(
