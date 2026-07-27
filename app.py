@@ -1,4 +1,5 @@
 import streamlit as st
+from modules.story_generator import generate_story
 
 # -----------------------------
 # Page Configuration
@@ -106,7 +107,17 @@ if generate:
     if prompt.strip() == "":
         st.warning("Please enter a prompt first.")
     else:
-        st.success("Story generation module coming in Day 2!")
+        with st.spinner("Creating cinematic story..."):
+
+    story = generate_story(prompt)
+
+st.success("Story Generated!")
+
+st.text_area(
+    "Generated Story",
+    story,
+    height=500
+)
 
 st.markdown("---")
 
