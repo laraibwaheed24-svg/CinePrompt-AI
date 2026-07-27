@@ -120,17 +120,25 @@ else:
 
 # Only display story if it exists
 if 'story' in globals():
-    movie = parse_story(story)
+    movie = story
 
     st.success("Movie Created!")
 
-    st.header(movie["title"])
+    st.header(movie["movie_title"])
 
     col1, col2, col3 = st.columns(3)
 
     col1.metric("🎭 Genre", movie["genre"])
     col2.metric("⏱ Duration", movie["duration"])
     col3.metric("🎬 Scenes", len(movie["scenes"]))
+
+    st.subheader("🧑 Main Characters")
+
+    for character in movie["characters"]:
+        st.write(f"• {character}")
+
+    st.subheader("📖 Story Summary")
+    st.write(movie["summary"])
 
     st.markdown("---")
 
