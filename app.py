@@ -104,53 +104,45 @@ generate = st.button(
     use_container_width=True
 )
 
+
 if generate and prompt.strip():
     with st.spinner("Creating cinematic story..."):
         try:
             story = generate_story(prompt)
-            st.write(story)
+
             st.success("Story Generated!")
-            st.text_area("Generated Story", story, height=500)
+
+            movie = story
+
+            st.header(movie["movie_title"])
+
+            col1, col2, col3 = st.columns(3)
+
+            col1.metric("🎭 Genre", movie["genre"])
+            col2.metric("⏱ Duration", movie["duration"])
+            col3.metric("🎬 Scenes", len(movie["scenes"]))
+
+            st.subheader("🧑 Main Characters")
+
+            for character in movie["characters"]:
+                st.write(f"• {character}")
+
+            st.subheader("📖 Story Summary")
+            st.write(movie["summary"])
+
+            st.markdown("---")
+
+            for scene in movie["scenes"]:
+                with st.expander(
+                    f"🎬 Scene {scene['scene_number']}: {scene['title']}"
+                ):
+                    st.write(scene["description"])
+
         except Exception as e:
             st.error(f"Error generating story: {e}")
-else:
-    if not prompt.strip():
-        st.warning("Please enter a prompt first.")
-    else:
-        st.warning("Please enable story generation.")
 
-# Only display story if it exists
-if 'story' in globals():
-    movie = story
-
-    st.success("Movie Created!")
-
-    st.header(movie["movie_title"])
-
-    col1, col2, col3 = st.columns(3)
-
-    col1.metric("🎭 Genre", movie["genre"])
-    col2.metric("⏱ Duration", movie["duration"])
-    col3.metric("🎬 Scenes", len(movie["scenes"]))
-
-    st.subheader("🧑 Main Characters")
-
-    for character in movie["characters"]:
-        st.write(f"• {character}")
-
-    st.subheader("📖 Story Summary")
-    st.write(movie["summary"])
-
-    st.markdown("---")
-
-    for i, scene in enumerate(movie["scenes"], start=1):
-
-        with st.expander(f"🎥 Scene {i}: {scene['title']}"):
-
-            st.write(scene["description"])
-
-st.markdown("---")
-
+elif not prompt.strip():
+    st.warning("Please enter a prompt first.")
 # -----------------------------
 # Feature Cards
 # -----------------------------
