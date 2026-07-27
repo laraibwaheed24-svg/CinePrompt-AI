@@ -1,9 +1,7 @@
 import streamlit as st
 from modules.story_generator import generate_story
 
-# -----------------------------
 # Page Configuration
-# -----------------------------
 st.set_page_config(
     page_title="CinePrompt AI",
     page_icon="🎬",
@@ -11,9 +9,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# -----------------------------
 # Custom CSS
-# -----------------------------
 st.markdown("""
 <style>
 .main-title{
@@ -47,129 +43,115 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# -----------------------------
 # Sidebar
-# -----------------------------
-st.sidebar.title("🎬 CinePrompt AI")
+def render_sidebar():
+    st.sidebar.title("🎬 CinePrompt AI")
+    st.sidebar.success("Version 1.0")
+    st.sidebar.markdown("---")
+    st.sidebar.info(
+        """
+        **Development Progress**
 
-st.sidebar.success("Version 1.0")
+        ✅ Project Setup
 
-st.sidebar.markdown("---")
+        ⏳ Story Generator
 
-st.sidebar.info(
-    """
-    **Development Progress**
+        ⏳ Storyboard
 
-    ✅ Project Setup
+        ⏳ Image Generator
 
-    ⏳ Story Generator
+        ⏳ Narration
 
-    ⏳ Storyboard
+        ⏳ Video Rendering
+        """
+    )
 
-    ⏳ Image Generator
+render_sidebar()
 
-    ⏳ Narration
-
-    ⏳ Video Rendering
-    """
-)
-
-# -----------------------------
 # Hero Section
-# -----------------------------
-st.markdown(
-    "<div class='main-title'>🎬 CinePrompt AI</div>",
-    unsafe_allow_html=True
-)
+def render_hero_section():
+    st.markdown(
+        "<div class='main-title'>🎬 CinePrompt AI</div>",
+        unsafe_allow_html=True
+    )
+    st.markdown(
+        "<div class='subtitle'>Transform Your Imagination into Cinematic AI Videos</div>",
+        unsafe_allow_html=True
+    )
+    st.markdown("---")
 
-st.markdown(
-    "<div class='subtitle'>Transform Your Imagination into Cinematic AI Videos</div>",
-    unsafe_allow_html=True
-)
+render_hero_section()
 
-st.markdown("---")
-
-# -----------------------------
 # Prompt Box
-# -----------------------------
-prompt = st.text_area(
-    "✨ Enter Your Story Idea",
-    height=150,
-    placeholder="Example: A lone astronaut discovers an abandoned city on Mars..."
-)
+def render_prompt_box():
+    prompt = st.text_area(
+        "✨ Enter Your Story Idea",
+        height=150,
+        placeholder="Example: A lone astronaut discovers an abandoned city on Mars..."
+    )
+    generate = st.button(
+        "🎬 Generate Story",
+        use_container_width=True
+    )
+    return prompt, generate
 
-generate = st.button(
-    "🎬 Generate Story",
-    use_container_width=True
-)
+prompt, generate = render_prompt_box()
 
-if generate and prompt.strip():
-    with st.spinner("Creating cinematic story..."):
-        try:
-            story = generate_story(prompt)
-            st.success("Story Generated!")
-            st.text_area("Generated Story", story, height=500)
-        except Exception as e:
-            st.error(f"Error generating story: {e}")
-else:
-    if not prompt.strip():
-        st.warning("Please enter a prompt first.")
+# Story Generation
+def generate_and_display_story(prompt):
+    if prompt.strip():
+        with st.spinner("Creating cinematic story..."):
+            try:
+                story = generate_story(prompt)
+                st.success("Story Generated!")
+                st.text_area("Generated Story", story, height=500)
+            except Exception as e:
+                st.error(f"Error generating story: {e}")
     else:
-        st.warning("Please enable story generation.")
+        st.warning("Please enter a prompt first.")
 
-# Only display story if it exists
+if generate:
+    generate_and_display_story(prompt)
 
-if 'story' in globals():
-    st.text_area("Generated Story", story, height=500)
-
-st.markdown("---")
-
-# -----------------------------
 # Feature Cards
-# -----------------------------
-col1, col2, col3 = st.columns(3)
+def render_feature_cards():
+    col1, col2, col3 = st.columns(3)
+    features = [
+        {"title": "📖 Story Generation", "description": "Generate engaging stories from a single prompt."},
+        {"title": "🎨 AI Images", "description": "Create cinematic visuals for every scene."},
+        {"title": "🎥 Video Creation", "description": "Turn scenes into a fully narrated movie."},
+    ]
+    for col, feature in zip([col1, col2, col3], features):
+        with col:
+            st.markdown(
+                f"""
+                <div class="feature-box">
+                <h3>{feature['title']}</h3>
+                <p>{feature['description']}</p>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+    st.markdown("---")
 
-with col1:
-    st.markdown("""
-    <div class="feature-box">
-    <h3>📖 Story Generation</h3>
-    <p>Generate engaging stories from a single prompt.</p>
-    </div>
-    """, unsafe_allow_html=True)
+render_feature_cards()
 
-with col2:
-    st.markdown("""
-    <div class="feature-box">
-    <h3>🎨 AI Images</h3>
-    <p>Create cinematic visuals for every scene.</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-with col3:
-    st.markdown("""
-    <div class="feature-box">
-    <h3>🎥 Video Creation</h3>
-    <p>Turn scenes into a fully narrated movie.</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-st.markdown("---")
-
-# -----------------------------
 # About
-# -----------------------------
-st.header("🚀 About CinePrompt AI")
+def render_about_section():
+    st.header("🚀 About CinePrompt AI")
+    st.write("""
+    CinePrompt AI is an AI-powered platform that transforms text prompts
+    into cinematic videos using story generation, AI images, narration,
+    background music, subtitles, and video rendering.
+    """)
 
-st.write("""
-CinePrompt AI is an AI-powered platform that transforms text prompts
-into cinematic videos using story generation, AI images, narration,
-background music, subtitles, and video rendering.
-""")
+render_about_section()
 
-# -----------------------------
 # Footer
-# -----------------------------
-st.markdown(
-    "<div class='footer'>Made with ❤️ using Python & Streamlit</div>",
-    unsafe_allow_html=True
-)
+def render_footer():
+    st.markdown(
+        "<div class='footer'>Made with ❤️ using Python & Streamlit</div>",
+        unsafe_allow_html=True
+    )
+
+render_footer()
