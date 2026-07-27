@@ -108,6 +108,7 @@ if generate and prompt.strip():
     with st.spinner("Creating cinematic story..."):
         try:
             story = generate_story(prompt)
+            st.write(story)
             st.success("Story Generated!")
             st.text_area("Generated Story", story, height=500)
         except Exception as e:
