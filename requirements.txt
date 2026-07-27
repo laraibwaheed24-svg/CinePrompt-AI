@@ -1,1 +1,8 @@
-
+streamlit
+groq
+python-dotenv
+requests
+pillow
+moviepy
+ffmpeg-python
+pandas
