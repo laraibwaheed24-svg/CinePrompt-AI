@@ -96,24 +96,24 @@ if generate and prompt.strip():
     with st.spinner("Creating cinematic story..."):
         try:
             story = generate_story(prompt)
-            st.json(story)
 
-            st.success("Story Generated!")
-            
-            import json
             st.session_state.movie = story
 
-            display_movie_header(movie)
-            
-            st.write(movie["summary"])
-
-            st.markdown("---")
-
-            for scene in movie["scenes"]:
-                display_scene(scene)
+            st.success("Story Generated!")
 
         except Exception as e:
             st.error(f"Error generating story: {e}")
+
+
+if st.session_state.movie is not None:
+
+    movie = st.session_state.movie
+
+    display_movie_header(movie)
+
+    for scene in movie["scenes"]:
+        display_scene(scene)
+
 
 elif not prompt.strip():
     st.warning("Please enter a prompt first.")
