@@ -3,6 +3,7 @@ from modules.story_generator import generate_story
 from utils.parser import parse_story
 from components.scene_card import display_scene
 from components.movie_header import display_movie_header
+from components.sidebar import display_sidebar
 
 # -----------------------------
 # Page Configuration
@@ -53,29 +54,9 @@ st.markdown("""
 # -----------------------------
 # Sidebar
 # -----------------------------
-st.sidebar.title("🎬 CinePrompt AI")
 
-st.sidebar.success("Version 1.0")
+display_sidebar()
 
-st.sidebar.markdown("---")
-
-st.sidebar.info(
-    """
-    **Development Progress**
-
-    ✅ Project Setup
-
-    ⏳ Story Generator
-
-    ⏳ Storyboard
-
-    ⏳ Image Generator
-
-    ⏳ Narration
-
-    ⏳ Video Rendering
-    """
-)
 
 # -----------------------------
 # Hero Section
