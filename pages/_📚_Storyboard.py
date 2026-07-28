@@ -64,7 +64,38 @@ else:
         
         st.markdown("---")
 
-        if st.button("📄 Generate Storyboard PDF"):
+        for scene in movie["scenes"]:
+
+            st.subheader(
+                f"🎬 Scene {scene['scene_number']}: {scene['title']}"
+            )
+
+            st.write(scene["description"])
+
+            st.info(scene["image_prompt"])
+
+            image_key = f"scene_image_{scene['scene_number']}"
+
+            if image_key in st.session_state and st.session_state[image_key]:
+
+                st.image(
+                    st.session_state[image_key],
+                    caption=f"Scene {scene['scene_number']} Image",
+                    use_container_width=True
+                )
+
+            else:
+                st.warning("🖼 Image not generated yet for this scene.")
+
+            st.markdown("---")
+
+
+# PDF BUTTON (outside the loop)
+
+        if st.button(
+            "📄 Generate Storyboard PDF",
+            key="generate_storyboard_pdf"
+        ):
 
             pdf_file = create_storyboard_pdf(movie)
 
