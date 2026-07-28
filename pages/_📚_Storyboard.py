@@ -25,7 +25,7 @@ else:
         f"Storyboard: {movie['movie_title']}"
     )
 
-    st.markdown("---")
+st.markdown("---")
 
 
 
