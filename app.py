@@ -109,13 +109,12 @@ if generate and prompt.strip():
     with st.spinner("Creating cinematic story..."):
         try:
             story = generate_story(prompt)
+            st.json(story)
 
             st.success("Story Generated!")
 
 
             import json
-
-            st.json(story)
 
             movie = story
 
