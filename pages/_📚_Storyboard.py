@@ -1,4 +1,5 @@
 import streamlit as st
+from modules.pdf_generator import create_storyboard_pdf
 
 st.set_page_config(
     page_title="Storyboard Studio",
