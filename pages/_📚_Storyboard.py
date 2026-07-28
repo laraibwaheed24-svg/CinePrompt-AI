@@ -61,4 +61,18 @@ else:
             )
 
 
+        
         st.markdown("---")
+
+        if st.button("📄 Generate Storyboard PDF"):
+
+            pdf_file = create_storyboard_pdf(movie)
+
+            with open(pdf_file, "rb") as file:
+
+                st.download_button(
+                    "⬇ Download PDF",
+                    file,
+                    file_name="CinePrompt_Storyboard.pdf",
+                    mime="application/pdf"
+                )
