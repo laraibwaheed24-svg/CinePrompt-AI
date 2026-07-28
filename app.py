@@ -99,12 +99,8 @@ if generate and prompt.strip():
             st.json(story)
 
             st.success("Story Generated!")
-
-
+            
             import json
-
-            movie = story
-
             st.session_state.movie = story
 
             display_movie_header(movie)
