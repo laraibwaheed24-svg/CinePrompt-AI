@@ -112,6 +112,11 @@ if generate and prompt.strip():
 
             st.success("Story Generated!")
 
+
+            import json
+
+            st.json(story)
+
             movie = story
 
             st.header(movie["movie_title"])
