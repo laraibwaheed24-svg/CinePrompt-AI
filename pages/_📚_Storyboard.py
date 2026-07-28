@@ -1,6 +1,7 @@
 import streamlit as st
 from modules.pdf_generator import create_storyboard_pdf
 
+
 st.set_page_config(
     page_title="Storyboard Studio",
     page_icon="📚",
@@ -25,50 +26,59 @@ else:
         f"Storyboard: {movie['movie_title']}"
     )
 
-st.markdown("---")
+    st.markdown("---")
 
 
+    for scene in movie["scenes"]:
 
-        for scene in movie["scenes"]:
+        st.subheader(
+            f"🎬 Scene {scene['scene_number']}: {scene['title']}"
+        )
 
-            st.subheader(
-                f"🎬 Scene {scene['scene_number']}: {scene['title']}"
+        st.write(
+            scene["description"]
+        )
+
+        st.info(
+            scene["image_prompt"]
+        )
+
+
+        image_key = f"scene_image_{scene['scene_number']}"
+
+
+        if image_key in st.session_state and st.session_state[image_key]:
+
+            st.image(
+                st.session_state[image_key],
+                caption=f"Scene {scene['scene_number']} Image",
+                use_container_width=True
             )
 
-            st.write(scene["description"])
+        else:
 
-            st.info(scene["image_prompt"])
-
-            image_key = f"scene_image_{scene['scene_number']}"
-
-            if image_key in st.session_state and st.session_state[image_key]:
-
-                st.image(
-                    st.session_state[image_key],
-                    caption=f"Scene {scene['scene_number']} Image",
-                    use_container_width=True
-                )
-
-            else:
-                st.warning("🖼 Image not generated yet for this scene.")
-
-            st.markdown("---")
+            st.warning(
+                "🖼 Image not generated yet for this scene."
+            )
 
 
- # PDF BUTTON (outside the loop)
+        st.markdown("---")
 
-        if st.button(
-            "📄 Generate Storyboard PDF",
-            key="generate_storyboard_pdf"
-        ):
 
-            pdf_file = create_storyboard_pdf(movie)
+    # PDF BUTTON (outside scene loop)
 
-            with open(pdf_file, "rb") as file:
+    if st.button(
+        "📄 Generate Storyboard PDF",
+        key="generate_storyboard_pdf"
+    ):
 
-                st.download_button(
-                    "⬇ Download PDF",
-                    file,
-                    file_name="CinePrompt_Storyboard.pdf",
-                    mime="application/pdf"
-                )
+        pdf_file = create_storyboard_pdf(movie)
+
+        with open(pdf_file, "rb") as file:
+
+            st.download_button(
+                "⬇ Download PDF",
+                file,
+                file_name="CinePrompt_Storyboard.pdf",
+                mime="application/pdf"
+            )
