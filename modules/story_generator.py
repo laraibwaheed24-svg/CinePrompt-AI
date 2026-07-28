@@ -4,6 +4,8 @@ import json
 
 from config.prompts import SYSTEM_PROMPT
 
+st.write(SYSTEM_PROMPT)
+
 
 client = Groq(
     api_key=st.secrets["GROQ_API_KEY"]
