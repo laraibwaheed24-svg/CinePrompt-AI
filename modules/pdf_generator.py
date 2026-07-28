@@ -6,6 +6,8 @@ from reportlab.platypus import (
 )
 
 from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.platypus import Image
+import os
 
 
 def create_storyboard_pdf(movie):
