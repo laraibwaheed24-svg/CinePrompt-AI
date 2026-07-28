@@ -103,7 +103,7 @@ if generate and prompt.strip():
 
             import json
 
-            movie = story
+            st.session_state.movie = story
 
             display_movie_header(movie)
             
