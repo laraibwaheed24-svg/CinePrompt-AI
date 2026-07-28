@@ -39,4 +39,5 @@ def display_scene(scene):
         "🖼 Generate Image",
         key=f"generate_image_{scene['scene_number']}"
     ):
+        st.success("Button Clicked!")
         generate_image(scene["image_prompt"])
