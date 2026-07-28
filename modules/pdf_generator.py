@@ -27,6 +27,25 @@ def create_storyboard_pdf(movie):
     # COVER PAGE
     # =========================
 
+    poster_path = "movie_poster.png"
+
+    if os.path.exists(poster_path):
+
+        content.append(
+            Image(
+                poster_path,
+                width=250,
+                height=350
+            )
+        )
+
+        content.append(
+            Spacer(1, 20)
+        )
+
+
+
+    
     content.append(
         Paragraph(
             "🎬 CinePrompt AI",
