@@ -138,10 +138,7 @@ if generate and prompt.strip():
             st.markdown("---")
 
             for scene in movie["scenes"]:
-                with st.expander(
-                    f"🎬 Scene {scene['scene_number']}: {scene['title']}"
-                ):
-                    st.write(scene["description"])
+                display_scene(scene)
 
         except Exception as e:
             st.error(f"Error generating story: {e}")
