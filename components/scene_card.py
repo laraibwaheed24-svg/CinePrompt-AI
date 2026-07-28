@@ -1,5 +1,6 @@
 import streamlit as st
 from modules.image_generator import generate_image
+from modules.narration_generator import generate_narration
 
 
 def display_scene(scene):
@@ -149,3 +150,23 @@ def display_scene(scene):
 
         with st.expander("📝 Image Prompt Used"):
             st.code(edited_prompt)
+
+    
+# ==========================
+# AI Narration
+# ==========================
+
+    st.divider()
+
+    if st.button(
+        "🎙 Generate Narration",
+        key=f"voice_{scene['scene_number']}"
+    ):
+
+        with st.spinner("Generating AI narration..."):
+
+            audio_file = generate_narration(
+                scene["narration"]
+            )
+
+            st.audio(audio_file)
