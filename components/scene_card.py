@@ -39,5 +39,15 @@ def display_scene(scene):
         "🖼 Generate Image",
         key=f"generate_image_{scene['scene_number']}"
     ):
-        st.success("Button Clicked!")
-        generate_image(scene["image_prompt"])
+        result = generate_image(scene["image_prompt"])
+
+        if result["status"] == "success":
+            st.image(
+                result["image_url"],
+                caption="AI Image Preview",
+                use_container_width=True
+            )
+
+            with st.expander("📝 Prompt Used"):
+                st.code(result["prompt"])
+    
