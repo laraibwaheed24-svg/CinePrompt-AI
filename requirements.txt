@@ -6,3 +6,4 @@ pillow
 moviepy
 ffmpeg-python
 pandas
+edge-tts
