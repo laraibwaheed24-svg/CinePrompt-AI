@@ -7,3 +7,4 @@ moviepy
 ffmpeg-python
 pandas
 edge-tts
+reportlab
