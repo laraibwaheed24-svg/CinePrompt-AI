@@ -1,17 +1,5 @@
 import streamlit as st
-from modules.story_generator import generate_story
-from utils.parser import parse_story
-from components.scene_card import display_scene
-from components.movie_header import display_movie_header
-from components.sidebar import display_sidebar
-from modules.image_generator import generate_image
 
-if "movie" not in st.session_state:
-    st.session_state.movie = None
-
-# -----------------------------
-# Page Configuration
-# -----------------------------
 st.set_page_config(
     page_title="CinePrompt AI",
     page_icon="🎬",
@@ -19,9 +7,6 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# -----------------------------
-# Custom CSS
-# -----------------------------
 st.markdown("""
 <style>
 .main-title{
@@ -55,16 +40,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# -----------------------------
-# Sidebar
-# -----------------------------
 
-display_sidebar()
-
-
-# -----------------------------
-# Hero Section
-# -----------------------------
 st.markdown(
     "<div class='main-title'>🎬 CinePrompt AI</div>",
     unsafe_allow_html=True
@@ -77,49 +53,7 @@ st.markdown(
 
 st.markdown("---")
 
-# -----------------------------
-# Prompt Box
-# -----------------------------
-prompt = st.text_area(
-    "✨ Enter Your Story Idea",
-    height=150,
-    placeholder="Example: A lone astronaut discovers an abandoned city on Mars..."
-)
 
-generate = st.button(
-    "🎬 Generate Story",
-    use_container_width=True
-)
-
-
-if generate and prompt.strip():
-    with st.spinner("Creating cinematic story..."):
-        try:
-            story = generate_story(prompt)
-
-            st.session_state.movie = story
-
-            st.success("Story Generated!")
-
-        except Exception as e:
-            st.error(f"Error generating story: {e}")
-
-
-if st.session_state.movie is not None:
-
-    movie = st.session_state.movie
-
-    display_movie_header(movie)
-
-    for scene in movie["scenes"]:
-        display_scene(scene)
-
-
-elif not prompt.strip():
-    st.warning("Please enter a prompt first.")
-# -----------------------------
-# Feature Cards
-# -----------------------------
 col1, col2, col3 = st.columns(3)
 
 with col1:
@@ -146,22 +80,18 @@ with col3:
     </div>
     """, unsafe_allow_html=True)
 
+
 st.markdown("---")
 
-# -----------------------------
-# About
-# -----------------------------
 st.header("🚀 About CinePrompt AI")
 
 st.write("""
-CinePrompt AI is an AI-powered platform that transforms text prompts
-into cinematic videos using story generation, AI images, narration,
-background music, subtitles, and video rendering.
+CinePrompt AI is an AI-powered filmmaking platform that transforms
+text prompts into cinematic experiences using AI story generation,
+visuals, narration, music, and video rendering.
 """)
 
-# -----------------------------
-# Footer
-# -----------------------------
+
 st.markdown(
     "<div class='footer'>Made with ❤️ using Python & Streamlit</div>",
     unsafe_allow_html=True
