@@ -1,4 +1,5 @@
 import streamlit as st
+from modules.image_generator import generate_image
 
 
 def display_scene(scene):
@@ -31,3 +32,11 @@ def display_scene(scene):
 
     for effect in scene["sound_effects"]:
         st.write(f"• {effect}")
+
+    st.divider()
+
+    if st.button(
+        "🖼 Generate Image",
+        key=f"generate_image_{scene['scene_number']}"
+    ):
+        generate_image(scene["image_prompt"])
