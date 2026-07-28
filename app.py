@@ -120,20 +120,8 @@ if generate and prompt.strip():
 
             movie = story
 
-            st.header(movie["movie_title"])
-
-            col1, col2, col3 = st.columns(3)
-
-            col1.metric("🎭 Genre", movie["genre"])
-            col2.metric("⏱ Duration", movie["duration"])
-            col3.metric("🎬 Scenes", len(movie["scenes"]))
-
-            st.subheader("🧑 Main Characters")
-
-            for character in movie["characters"]:
-                st.write(f"• {character}")
-
-            st.subheader("📖 Story Summary")
+            display_movie_header(movie)
+            
             st.write(movie["summary"])
 
             st.markdown("---")
