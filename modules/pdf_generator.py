@@ -1,4 +1,10 @@
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+from reportlab.platypus import (
+    SimpleDocTemplate,
+    Paragraph,
+    Spacer,
+    PageBreak
+)
+
 from reportlab.lib.styles import getSampleStyleSheet
 
 
@@ -6,20 +12,41 @@ def create_storyboard_pdf(movie):
 
     file_path = "CinePrompt_Storyboard.pdf"
 
-    doc = SimpleDocTemplate(file_path)
+    doc = SimpleDocTemplate(
+        file_path
+    )
 
     styles = getSampleStyleSheet()
 
     content = []
 
+
+    # =========================
+    # COVER PAGE
+    # =========================
+
     content.append(
         Paragraph(
-            movie["movie_title"],
+            "🎬 CinePrompt AI",
             styles["Title"]
         )
     )
 
-    content.append(Spacer(1, 20))
+    content.append(
+        Spacer(1, 30)
+    )
+
+
+    content.append(
+        Paragraph(
+            movie["movie_title"],
+            styles["Heading1"]
+        )
+    )
+
+    content.append(
+        Spacer(1, 20)
+    )
 
 
     content.append(
@@ -37,8 +64,17 @@ def create_storyboard_pdf(movie):
     )
 
 
-    content.append(Spacer(1, 20))
+    content.append(
+        Spacer(1, 20)
+    )
 
+
+    content.append(
+        Paragraph(
+            "Story Summary",
+            styles["Heading2"]
+        )
+    )
 
     content.append(
         Paragraph(
@@ -48,7 +84,25 @@ def create_storyboard_pdf(movie):
     )
 
 
-    content.append(Spacer(1, 20))
+    content.append(
+        PageBreak()
+    )
+
+
+    # =========================
+    # SCENE PAGES
+    # =========================
+
+    content.append(
+        Paragraph(
+            "🎬 Movie Storyboard",
+            styles["Title"]
+        )
+    )
+
+    content.append(
+        Spacer(1, 20)
+    )
 
 
     for scene in movie["scenes"]:
@@ -60,28 +114,39 @@ def create_storyboard_pdf(movie):
             )
         )
 
+
         content.append(
             Paragraph(
-                scene["description"],
+                "<b>Description:</b> " + scene["description"],
                 styles["Normal"]
             )
         )
 
+
+        content.append(
+            Spacer(1, 10)
+        )
+
+
         content.append(
             Paragraph(
-                f"Camera Shot: {scene['camera_shot']}",
+                "<b>Camera Shot:</b> " + scene["camera_shot"],
                 styles["Normal"]
             )
         )
 
+
         content.append(
             Paragraph(
-                f"Narration: {scene['narration']}",
+                "<b>Narration:</b> " + scene["narration"],
                 styles["Normal"]
             )
         )
 
-        content.append(Spacer(1, 15))
+
+        content.append(
+            Spacer(1, 20)
+        )
 
 
     doc.build(content)
