@@ -1,6 +1,7 @@
 import streamlit as st
 from modules.story_generator import generate_story
 from utils.parser import parse_story
+from components.scene_card import display_scene
 
 # -----------------------------
 # Page Configuration
