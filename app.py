@@ -4,6 +4,7 @@ from utils.parser import parse_story
 from components.scene_card import display_scene
 from components.movie_header import display_movie_header
 from components.sidebar import display_sidebar
+from modules.image_generator import generate_image
 
 # -----------------------------
 # Page Configuration
