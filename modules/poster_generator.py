@@ -19,9 +19,11 @@ Characters:
 Story:
 {movie['summary']}
 
-Epic cinematic movie poster,
-Hollywood blockbuster,
-beautiful composition,
+Epic Hollywood movie poster,
+large dramatic title typography,
+official theatrical poster,
+award-winning concept art,
+cinematic composition,
 dramatic lighting,
 ultra detailed,
 high quality,
