@@ -40,6 +40,63 @@ def display_scene(scene):
     for effect in scene["sound_effects"]:
         st.write(f"• {effect}")
 
+ 
+    st.markdown("### 🎬 Director Controls")
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        camera = st.selectbox(
+            "Camera",
+            [
+                "Wide Shot",
+                "Close-Up",
+                "Medium Shot",
+                "Tracking Shot",
+                "Aerial Shot",
+            ],
+            key=f"camera_{scene['scene_number']}",
+        )
+
+        lighting = st.selectbox(
+            "Lighting",
+            [
+                "Golden Hour",
+                "Studio",
+                "Moonlight",
+                "Soft Light",
+                "Dramatic",
+            ],
+            key=f"light_{scene['scene_number']}",
+        )
+
+    with col2:
+        style = st.selectbox(
+            "Art Style",
+            [
+                "Cinematic",
+                "Realistic",
+                "Anime",
+                "Pixar",
+                "Ghibli",
+            ],
+            key=f"style_{scene['scene_number']}",
+        )
+
+        weather = st.selectbox(
+            "Weather",
+            [
+                "Clear",
+                "Rain",
+                "Snow",
+                "Fog",
+                "Storm",
+            ],
+            key=f"weather_{scene['scene_number']}",
+        )
+
+    
+
     st.divider()
 
     image_key = f"scene_image_{scene['scene_number']}"
@@ -55,7 +112,22 @@ def display_scene(scene):
             key=f"generate_image_{scene['scene_number']}"
         ):
             with st.spinner("Generating cinematic image..."):
-                result = generate_image(edited_prompt)
+                enhanced_prompt = f"""
+                {edited_prompt}
+
+                Style: {style}
+
+                Camera: {camera}
+
+                Lighting: {lighting}
+
+                Weather: {weather}
+
+                Ultra realistic, masterpiece, cinematic lighting,
+                high detail, movie still, 8K quality.
+                """
+
+                result = generate_image(enhanced_prompt)
 
                 if result["status"] == "success":
                     st.session_state[image_key] = result["image_url"]
