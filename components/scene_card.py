@@ -17,7 +17,14 @@ def display_scene(scene):
     st.write(scene["description"])
 
     st.markdown("### 🖼 Image Prompt")
-    st.info(scene["image_prompt"])
+
+    edited_prompt = st.text_area(
+        "Edit image prompt",
+        value=scene["image_prompt"],
+        height=120,
+        key=f"prompt_{scene['scene_number']}",
+        label_visibility="collapsed"
+    )
 
     st.markdown("### 🎥 Camera Shot")
     st.success(scene["camera_shot"])
@@ -48,7 +55,7 @@ def display_scene(scene):
             key=f"generate_image_{scene['scene_number']}"
         ):
             with st.spinner("Generating cinematic image..."):
-                result = generate_image(scene["image_prompt"])
+                result = generate_image(edited_prompt)
 
                 if result["status"] == "success":
                     st.session_state[image_key] = result["image_url"]
@@ -69,4 +76,4 @@ def display_scene(scene):
         )
 
         with st.expander("📝 Image Prompt Used"):
-            st.code(scene["image_prompt"])
+            st.code(edited_prompt)
