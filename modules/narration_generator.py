@@ -1,6 +1,8 @@
 import edge_tts
 import asyncio
 import tempfile
+from gtts import gTTS
+import os
 
 
 async def _generate(text, voice, output):
