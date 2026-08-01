@@ -6,6 +6,7 @@ from components.movie_header import display_movie_header
 from components.sidebar import display_sidebar
 from modules.image_generator import generate_image
 from modules.poster_generator import generate_movie_poster
+from modules.narration_generator import generate_narration
 
 if "movie" not in st.session_state:
     st.session_state.movie = None
