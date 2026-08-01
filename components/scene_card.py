@@ -156,27 +156,27 @@ def display_scene(scene):
 # AI Narration
 # ==========================
 
-st.divider()
+    st.divider()
 
-audio_key = f"scene_audio_{scene['scene_number']}"
+    audio_key = f"scene_audio_{scene['scene_number']}"
 
-if audio_key not in st.session_state:
-    st.session_state[audio_key] = None
+    if audio_key not in st.session_state:
+        st.session_state[audio_key] = None
 
-if st.button(
-    "🎙 Generate Narration",
-    key=f"voice_{scene['scene_number']}"
-):
+    if st.button(
+        "🎙 Generate Narration",
+        key=f"voice_{scene['scene_number']}"
+    ):
 
-    with st.spinner("Generating AI narration..."):
+        with st.spinner("Generating AI narration..."):
 
-        audio_file = generate_narration(
-            scene["narration"]
-        )
+            audio_file = generate_narration(
+                scene["narration"]
+            )
 
-        st.session_state[audio_key] = audio_file
+            st.session_state[audio_key] = audio_file
 
 
-if st.session_state[audio_key]:
+    if st.session_state[audio_key]:
 
-    st.audio(st.session_state[audio_key])
+        st.audio(st.session_state[audio_key])
