@@ -101,22 +101,10 @@ if generate and prompt.strip():
         except Exception as e:
             st.error(f"Error generating story: {e}")
 
+    
 
-if st.session_state.movie is not None:
+    
 
-    movie = st.session_state.movie
-
-    display_movie_header(movie)
-    st.markdown("## 🎨 AI Movie Poster")
-
-    if st.button(
-        "🎨 Generate Movie Poster",
-        key="generate_movie_poster"
-    ):
-
-        poster_url = generate_movie_poster(movie)
-
-        st.session_state.poster_url = poster_url
 
     if st.session_state.movie is not None:
 
@@ -124,29 +112,12 @@ if st.session_state.movie is not None:
 
         display_movie_header(movie)
 
-        st.markdown("## 🎨 AI Movie Poster")
-
-        if st.button(
-            "🎨 Generate Movie Poster",
-            key="generate_movie_poster"
-        ):
-
-            st.session_state.poster_url = generate_movie_poster(movie)
-
-        if "poster_url" in st.session_state:
-
-            st.image(
-                st.session_state.poster_url,
-                use_container_width=True
-            )
-
-        # Always display scenes
         for scene in movie["scenes"]:
             display_scene(scene)
 
-
-elif not prompt.strip():
-    st.warning("Please enter a prompt first.")
+    elif not prompt.strip():
+        st.warning("Please enter a prompt first.")
+       
 # -----------------------------
 # Feature Cards
 # -----------------------------
