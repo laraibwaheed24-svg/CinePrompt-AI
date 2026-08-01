@@ -6,7 +6,6 @@ from components.movie_header import display_movie_header
 from components.sidebar import display_sidebar
 from modules.image_generator import generate_image
 from modules.poster_generator import generate_movie_poster
-from modules.narration_generator import generate_narration
 
 if "movie" not in st.session_state:
     st.session_state.movie = None
@@ -110,19 +109,38 @@ if st.session_state.movie is not None:
     display_movie_header(movie)
     st.markdown("## 🎨 AI Movie Poster")
 
-    if st.button("🎨 Generate Movie Poster"):
+    if st.button(
+        "🎨 Generate Movie Poster",
+        key="generate_movie_poster"
+    ):
 
         poster_url = generate_movie_poster(movie)
 
         st.session_state.poster_url = poster_url
 
-    if "poster_url" in st.session_state:
+    if st.session_state.movie is not None:
 
-        st.image(
-            st.session_state.poster_url,
-            use_container_width=True
-        )
+        movie = st.session_state.movie
 
+        display_movie_header(movie)
+
+        st.markdown("## 🎨 AI Movie Poster")
+
+        if st.button(
+            "🎨 Generate Movie Poster",
+            key="generate_movie_poster"
+        ):
+
+            st.session_state.poster_url = generate_movie_poster(movie)
+
+        if "poster_url" in st.session_state:
+
+            st.image(
+                st.session_state.poster_url,
+                use_container_width=True
+            )
+
+        # Always display scenes
         for scene in movie["scenes"]:
             display_scene(scene)
 
