@@ -105,18 +105,17 @@ if generate and prompt.strip():
 
     
 
+if st.session_state.movie is not None:
 
-    if st.session_state.movie is not None:
+    movie = st.session_state.movie
 
-        movie = st.session_state.movie
+    display_movie_header(movie)
 
-        display_movie_header(movie)
+    for scene in movie["scenes"]:
+        display_scene(scene)
 
-        for scene in movie["scenes"]:
-            display_scene(scene)
-
-    elif not prompt.strip():
-        st.warning("Please enter a prompt first.")
+elif not prompt.strip():
+    st.warning("Please enter a prompt first.")
        
 # -----------------------------
 # Feature Cards
