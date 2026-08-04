@@ -129,6 +129,9 @@ def display_scene(scene):
                 """
 
                 result = generate_image(enhanced_prompt)
+                st.write(result)
+                st.write(result["image_url"])
+                
 
                 if result["status"] == "success":
                     st.session_state[image_key] = result["image_url"]
