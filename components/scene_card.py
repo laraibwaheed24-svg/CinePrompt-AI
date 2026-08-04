@@ -113,20 +113,15 @@ def display_scene(scene):
             key=f"generate_image_{scene['scene_number']}"
         ):
             with st.spinner("Generating cinematic image..."):
-                enhanced_prompt = f"""
-                {edited_prompt}
-
-                Style: {style}
-
-                Camera: {camera}
-
-                Lighting: {lighting}
-
-                Weather: {weather}
-
-                Ultra realistic, masterpiece, cinematic lighting,
-                high detail, movie still, 8K quality.
-                """
+                enhanced_prompt = (
+                    f"{edited_prompt}\n\n"
+                    f"Style: {style}\n"
+                    f"Camera: {camera}\n"
+                    f"Lighting: {lighting}\n"
+                    f"Weather: {weather}\n\n"
+                    "Ultra realistic, masterpiece, cinematic lighting, "
+                    "high detail, movie still, 8K quality."
+                ).strip()
 
                 result = generate_image(enhanced_prompt)
                 st.write(result)
