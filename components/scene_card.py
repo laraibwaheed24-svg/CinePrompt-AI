@@ -123,7 +123,7 @@ def display_scene(scene):
                     "high detail, movie still, 8K quality."
                 ).strip()
 
-                result = generate_image(enhanced_prompt)
+                result = generate_image("A cinematic portrait of a cute orange cat")
                 st.write(result)
                 st.write(result["image_url"])
                 
